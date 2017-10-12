@@ -315,6 +315,7 @@
 					362A543B1C9BD5E00056B653 = {
 						CreatedOnToolsVersion = 7.2.1;
 						DevelopmentTeam = H5443445N6;
+						LastSwiftMigration = 0830;
 						SystemCapabilities = {
 							com.apple.Sandbox = {
 								enabled = 1;
@@ -327,6 +328,7 @@
 					3643CE131CC283BD005A9C4B = {
 						CreatedOnToolsVersion = 7.3;
 						DevelopmentTeam = H5443445N6;
+						LastSwiftMigration = 0830;
 						SystemCapabilities = {
 							com.apple.Sandbox = {
 								enabled = 1;
@@ -524,6 +526,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = me.zhuhaow.osx.Specht;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "30fcd81f-15a5-40a5-ada9-8d27995effd5";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -544,6 +547,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = me.zhuhaow.osx.Specht;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -566,6 +570,7 @@
 				PROVISIONING_PROFILE = "25a846a7-bdf1-45a4-a355-81653d0b718b";
 				SDKROOT = macosx;
 				SKIP_INSTALL = NO;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -587,6 +592,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SKIP_INSTALL = NO;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

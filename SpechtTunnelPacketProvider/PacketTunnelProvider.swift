@@ -11,7 +11,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
 
     var proxyServer: ProxyServer!
 
-    override func startTunnelWithOptions(options: [String : NSObject]?, completionHandler: (NSError?) -> Void) {
+    override func startTunnel(options: [String : NSObject]?, completionHandler: @escaping (Error?) -> Void) {
         DDLog.removeAllLoggers()
         // warning: setting to .Debug level might be way too verbose.
         DDLog.addLogger(DDASLLogger.sharedInstance(), withLevel: DDLogLevel.Info)
@@ -28,11 +28,11 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
 
         // the `tunnelRemoteAddress` is meaningless because we are not creating a tunnel.
         let networkSettings = NEPacketTunnelNetworkSettings(tunnelRemoteAddress: "8.8.8.8")
-        networkSettings.MTU = 1500
+        networkSettings.mtu = 1500
 
         let ipv4Settings = NEIPv4Settings(addresses: ["192.169.89.1"], subnetMasks: ["255.255.255.0"])
         if enablePacketProcessing {
-            ipv4Settings.includedRoutes = [NEIPv4Route.defaultRoute()]
+            ipv4Settings.includedRoutes = [NEIPv4Route.default()]
             ipv4Settings.excludedRoutes = [
                 NEIPv4Route(destinationAddress: "10.0.0.0", subnetMask: "255.0.0.0"),
                 NEIPv4Route(destinationAddress: "100.64.0.0", subnetMask: "255.192.0.0"),
@@ -42,15 +42,15 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
                 NEIPv4Route(destinationAddress: "192.168.0.0", subnetMask: "255.255.0.0"),
             ]
         }
-        networkSettings.IPv4Settings = ipv4Settings
+        networkSettings.iPv4Settings = ipv4Settings
 
         let proxySettings = NEProxySettings()
         //        proxySettings.autoProxyConfigurationEnabled = true
         //        proxySettings.proxyAutoConfigurationJavaScript = "function FindProxyForURL(url, host) {return \"SOCKS 127.0.0.1:\(proxyPort)\";}"
-        proxySettings.HTTPEnabled = true
-        proxySettings.HTTPServer = NEProxyServer(address: "127.0.0.1", port: proxyPort)
-        proxySettings.HTTPSEnabled = true
-        proxySettings.HTTPSServer = NEProxyServer(address: "127.0.0.1", port: proxyPort)
+        proxySettings.httpEnabled = true
+        proxySettings.httpServer = NEProxyServer(address: "127.0.0.1", port: proxyPort)
+        proxySettings.httpsEnabled = true
+        proxySettings.httpsServer = NEProxyServer(address: "127.0.0.1", port: proxyPort)
         proxySettings.excludeSimpleHostnames = true
         // This will match all domains
         proxySettings.matchDomains = [""]
@@ -61,7 +61,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
             let DNSSettings = NEDNSSettings(servers: ["198.18.0.1"])
             DNSSettings.matchDomains = [""]
             DNSSettings.matchDomainsNoSearch = false
-            networkSettings.DNSSettings = DNSSettings
+            networkSettings.dnsSettings = DNSSettings
         }
 
         setTunnelNetworkSettings(networkSettings) {
@@ -98,7 +98,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
         }
     }
 
-    override func stopTunnelWithReason(reason: NEProviderStopReason, completionHandler: () -> Void) {
+    override func stopTunnel(with reason: NEProviderStopReason, completionHandler: @escaping () -> Void) {
         if enablePacketProcessing {
             interface.stop()
             interface = nil
